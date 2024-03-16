@@ -9,7 +9,7 @@ terraform {
       source  = "hashicorp/awscc"
       version = "~> 0.1"
     }
-    mycloud = {
+    aws = {
       source  = "hashicorp/aws"
       version = ">= 1.0"
     }
