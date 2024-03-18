@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket                  = "terraform-s3-state-0223"
+    bucket                  = "terraform-s3-us2"
     dynamodb_table          = "table"
     key                     = "my-terraform-project"
     region                  = "us-east-2"
@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 terraform {
-  required_version = "0.13.0"
+  required_version = ">= 0.13.0"
   required_providers {
     awscc = {
       source  = "hashicorp/awscc"
