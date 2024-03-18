@@ -1,0 +1,25 @@
+name: Terraform Linter
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  tflint:
+    name: TFLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Terraform and TFLint
+        run: |
+          curl -LO https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_amd64.zip
+          unzip tflint_linux_amd64.zip
+          sudo mv tflint /usr/local/bin/
+
+      - name: Run TFLint
+        run: tflint

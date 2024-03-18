@@ -1,25 +1,41 @@
-name: Terraform Linter
+name: Terraform Workflow
+
 on:
-  pull_request:
-    branches:
-      - main
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+   env:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
+
 
 jobs:
-  tflint:
-    name: TFLint
+  terraform:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.14.9
 
-      - name: Install Terraform and TFLint
-        run: |
-          curl -LO https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_amd64.zip
-          unzip tflint_linux_amd64.zip
-          sudo mv tflint /usr/local/bin/
-
-      - name: Run TFLint
-        run: tflint
+    - name: Terraform Init
+      run: terraform init
+      
+    - name: Terraform Validate
+      run: terraform validate
+      
+    - name: Terraform Plan
+      run: terraform plan
+      
+    - name: Terraform Apply
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: terraform apply -auto-approve

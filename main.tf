@@ -1,3 +1,14 @@
+terraform {
+  backend "s3" {
+    bucket                  = "terraform-s3-state-0223"
+    dynamodb_table          = "table"
+    key                     = "my-terraform-project"
+    region                  = "us-east-2"
+    shared_credentials_file = "~/.aws/credentials"
+  }
+}
+
+
 provider "aws" {
     region = "us-east-2"  
 }
