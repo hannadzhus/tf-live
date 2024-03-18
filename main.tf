@@ -1,16 +1,16 @@
 terraform {
   backend "s3" {
-    bucket                  = "terraform-s3-us2"
+    bucket = "terraform-s3-us2"
     # dynamodb_table          = "table"
-    key                     = "my-terraform-project"
-    region                  = "us-east-2"
-  # shared_credentials_file = "~/.aws/credentials"
+    key    = "my-terraform-project"
+    region = "us-east-2"
+    # shared_credentials_file = "~/.aws/credentials"
   }
 }
 
 
 provider "aws" {
-    region = "us-east-2"  
+  region = "us-east-2"
 }
 
 terraform {
