@@ -4,7 +4,7 @@ terraform {
     dynamodb_table          = "table"
     key                     = "my-terraform-project"
     region                  = "us-east-2"
-    shared_credentials_file = "~/.aws/credentials"
+  # shared_credentials_file = "~/.aws/credentials"
   }
 }
 
